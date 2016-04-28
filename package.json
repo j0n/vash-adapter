@@ -1,0 +1,14 @@
+{
+  "name": "vash-adapter",
+  "version": "0.0.1",
+  "description": "Vash adapter to @fractal/fractal",
+  "main": "adapter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vash": "^0.11.3"
+  }
+}
