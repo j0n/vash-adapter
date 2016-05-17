@@ -1,6 +1,6 @@
 {
   "name": "vash-adapter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vash adapter to @fractal/fractal",
   "main": "adapter.js",
   "scripts": {
