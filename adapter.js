@@ -3,12 +3,20 @@
 const vash = require('vash');
 
 module.exports = function (source, config) {
+    if (typeof config !== 'undefined') {
+        vash.config = config;
+    }
     let viewsLoaded = false;
     function loadViews (source) {
         vash.helpers.tplcache = {}
         for (let item of source.flattenDeep()) {
             if (item.isDefault) {
-                vash.install(item.path.replace('--default', ''), item.content)
+                if (item.content) {
+                    vash.install(item.path.replace('--default', ''), item.content)
+                } else {
+                    console.error(item.path, 'is empty, please add content');
+                }
+
             }
             vash.install(item.path, item.content)
             if (item.alias) {
