@@ -7,8 +7,8 @@ module.exports = function (source, config) {
         vash.config = config;
     }
     let viewsLoaded = false;
+    vash.helpers.tplcache = {}
     function loadViews (source) {
-        vash.helpers.tplcache = {}
         for (let item of source.flattenDeep()) {
             if (item.isDefault) {
                 if (item.content) {
@@ -23,6 +23,7 @@ module.exports = function (source, config) {
                 vash.install(item.alias, item.content)
             }
         }
+        viewsLoaded = true;
     }
     source.on('loaded', loadViews);
     source.on('changed', loadViews);
