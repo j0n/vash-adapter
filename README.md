@@ -7,7 +7,7 @@ Use Vash templates with [Fractal](http://frctl.github.io).
 Install via NPM:
 
 ```bash
-npm i https://github.com/j0n/vash-adapter --save
+npm i vash-adapter --save
 ```
 
 Then add configuration details into your fractal.js file:
