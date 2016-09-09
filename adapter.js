@@ -1,39 +1,28 @@
 'use strict';
 
-const vash = require('vash');
+const Adapter  = require('@frctl/fractal').Adapter;
 
-module.exports = function (source, config) {
-    if (typeof config !== 'undefined') {
-        vash.config = config;
-    }
-    let viewsLoaded = false;
-    vash.helpers.tplcache = {}
-    function loadViews (source) {
-        for (let item of source.flattenDeep()) {
-            if (item.isDefault) {
-                if (item.content) {
-                    vash.install(item.path.replace('--default', ''), item.content)
-                } else {
-                    console.error(item.path, 'is empty, please add content');
-                }
+class VashAdapter extends Adapter {
 
-            }
-            vash.install(item.path, item.content)
-            if (item.alias) {
-                vash.install(item.alias, item.content)
-            }
-        }
-        viewsLoaded = true;
+    constructor(engine, source, config = {}) {
+        super(engine, source);
+        this.engine.config = config;
     }
-    source.on('loaded', loadViews);
-    source.on('changed', loadViews);
+
+    render(path, str, context, meta) {
+        const template = this.engine.compile(str);
+        context.cache = true;
+        return Promise.resolve(template(context));
+    }
+}
+
+module.exports = function(config = {}) {
+
     return {
-        engine: vash,
-        render: function (path, str, context, meta) {
-            if (!viewsLoaded) loadViews(source);
-            const template = vash.compile(str);
-            context.cache = true;
-            return Promise.resolve(template(context));
+
+        register(source, app) {
+            return new VashAdapter(require('vash'), source, config);
         }
     }
 };
+
