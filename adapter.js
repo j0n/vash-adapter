@@ -12,6 +12,7 @@ class VashAdapter extends Adapter {
     render(path, str, context, meta) {
         const template = this.engine.compile(str);
         context.cache = true;
+        context._target = meta.target;
         return Promise.resolve(template(context));
     }
 }
