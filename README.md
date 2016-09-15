@@ -2,6 +2,8 @@
 
 Use Vash templates with [Fractal](http://frctl.github.io).
 
+This version of the adapter has been developed and tested with Fractal v1.0.8.
+
 ## Usage
 
 Install via NPM:
@@ -13,10 +15,27 @@ npm i vash-adapter --save
 Then add configuration details into your fractal.js file:
 
 ```js
-const fractal = require('@frctl/fractal');
+let path = require('path');
+const view_ext = 'cshtml'; // or maybe 'vash' for your project?
 
-fractal.engine('vash', 'vash-adapter'); // register the vash engine adapter
+/*
+ * Set up Vash as the fractal engine through the vash-adapter.
+ */
+const fractal = module.exports = require('@frctl/fractal').create();
+let vash_adapter = require('vash-adapter')({
+    modelName: 'Model',
+    helpersName: 'Html',
+    settings: {
+    	views: path.join(__dirname, 'components'),
+    	'view engine': view_ext
+    }
+});
 
-fractal.set('components.engine', 'vash'); // use the vash handler
-fractal.set('components.ext', '.vash'); // look for files with a .vash file extension
+fractal.components.engine(vash_adapter);
+
+/*
+ * Tell Fractal where to look for components.
+ */
+fractal.components.set('path', path.join(__dirname, 'components'));
+fractal.components.set('ext', '.'+view_ext);
 ```
