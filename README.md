@@ -39,3 +39,29 @@ fractal.components.engine(vash_adapter);
 fractal.components.set('path', path.join(__dirname, 'components'));
 fractal.components.set('ext', '.'+view_ext);
 ```
+
+### Vash helpers
+
+You can optionally define [Vash helpers](https://github.com/kirbysayshi/vash#helper-system), which are functions that become available in any template. These are defined by passing a second object when getting the vash-adapter. Example:
+
+```js
+let vash_adapter = require('vash-adapter')({
+    // First the main configuration object, like above.
+    // ...
+}, {
+    // Then, any helpers.
+    echo: () => {
+        console.log('echo helper called. It was not so helpful.');
+    }
+});
+```
+
+You can then go ahead and use your helpers just like those built in to Vash.
+
+```html
+<p>A normal template with normal content</p>
+
+@Html.echo()
+```
+
+_Keep in mind that the `helpersName` configuration option defines how we access all helpers (named `Html` in this case). Additionally, vash-adapter will not overwrite built-in helpers, so you cannot use names taken by Vash (e.g. `raw`)._

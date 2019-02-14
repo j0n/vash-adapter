@@ -17,13 +17,25 @@ class VashAdapter extends Adapter {
     }
 }
 
-module.exports = function(config = {}) {
-
+/**
+ * @param  {object={}} config  main Vash configuration object
+ * @param  {object={}} helpers map of helper functions to register
+ * @return {function} Fractal template engine register function
+ */
+module.exports = function(config = {}, helpers = {}) {
     return {
-
         register(source, app) {
-            return new VashAdapter(require('vash'), source, config);
+            const vash = require('vash');
+            // Add helper functions to vash engine
+            Object.keys(helpers).forEach((helperName) => {
+                // Don't overwrite existing helpers
+                if (typeof vash.helpers[helperName] === 'undefined') {
+                    vash.helpers[helperName] = helpers[helperName];
+                } else {
+                    throw new Error(`vash helper ${helperName} already exists`)
+                }
+            });
+            return new VashAdapter(vash, source, config);
         }
     }
 };
-
