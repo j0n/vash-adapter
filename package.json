@@ -6,7 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jon Andersson",
+  "contributors": [
+    "Daniel Olsson",
+    "Fredrik Ohlin <fohlin@gmail.com>"
+  ],
+  "homepage": "https://github.com/j0n/vash-adapter",
+  "repository": "github:j0n/vash-adapter",
   "license": "ISC",
   "dependencies": {
     "vash": "^0.11.3"
