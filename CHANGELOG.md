@@ -1,6 +1,6 @@
 # Changes to Vash adapter
 
-## next
+## v0.1.0 - 2019-02-14
 
 * Feature: add support for Vash helpers.
 * Upgrade `vash` to v0.12.6. Contains mostly minor fixes to template parsing.
