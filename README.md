@@ -2,7 +2,7 @@
 
 Use Vash templates with [Fractal](http://frctl.github.io).
 
-This version of the adapter has been developed and tested with Fractal v1.0.8.
+This version of the adapter has been developed and tested with Fractal v1.0.8 - v1.1.7.
 
 ## Usage
 
